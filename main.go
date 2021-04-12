@@ -7,8 +7,8 @@ import (
 	"os"
 	"strconv"
 )
-import "./subarray"
 
+import "github.com/AndreiBarbuOz/subarray"
 
 func readInts(r io.Reader) ([]int, error) {
 	scanner := bufio.NewScanner(r)
