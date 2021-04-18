@@ -43,8 +43,14 @@ func main() {
 			os.Exit(1)
 		}
 		start := time.Now()
-		_, _, err = subarray.MaxSubarray(integers)
-		duration := time.Since(start)
-		fmt.Printf("i = %d len = %v duration=%v\n", i, len(integers), duration)
+		diLeft, diRight, err := subarray.MaxSubarray(integers)
+		diDuration := time.Since(start)
+		start = time.Now()
+		bfLeft, bfRight, err := subarray.MaxSubarrayBruteForce(integers)
+		bfDuration := time.Since(start)
+		fmt.Printf("i = %d len = %v div et imp=%v brute force=%v\n", i, len(integers), diDuration, bfDuration)
+		if bfLeft != diLeft || bfRight != diRight {
+			fmt.Printf("responses don't match\n")
+		}
 	}
 }

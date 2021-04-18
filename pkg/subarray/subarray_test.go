@@ -168,20 +168,85 @@ func TestGetMaxSubarrayLeftRight(t *testing.T) {
 
 }
 
-func TestMaxSubarrayBruteForceEmpty(t *testing.T) {
-	intArray := []int{}
-	left, right, err := MaxSubarrayBruteForce(intArray)
-	if left != 0 || right != 0 || err != nil {
-		t.Errorf("MaxSubarrayBruteForce failed for empty array")
+//
+//func TestMaxSubarrayBruteForceEmpty(t *testing.T) {
+//	intArray := []int{}
+//	left, right, err := MaxSubarrayBruteForce(intArray)
+//	if left != 0 || right != 0 || err != nil {
+//		t.Errorf("MaxSubarrayBruteForce failed for empty array")
+//	}
+//	intArray = append(intArray, 0)
+//	left, right, err = MaxSubarrayBruteForce(intArray)
+//	if left != 0 || right != 0 || err != nil {
+//		t.Errorf("MaxSubarrayBruteForce failed for single item array")
+//	}
+//	intArray = []int{1}
+//	left, right, err = MaxSubarrayBruteForce(intArray)
+//	if left != 0 || right != 0 || err != nil {
+//		t.Errorf("MaxSubarrayBruteForce failed for single item array")
+//	}
+//}
+
+func TestMaxSubarrayBruteForceBasic(t *testing.T) {
+	intArray := []int{1}
+	low, high, err := MaxSubarrayBruteForce(intArray)
+	if low != 0 || high != 0 || err != nil {
+		t.Errorf("MaxSubarrayBruteForce failed for single value")
 	}
-	intArray = append(intArray, 0)
-	left, right, err = MaxSubarrayBruteForce(intArray)
-	if left != 0 || right != 0 || err != nil {
-		t.Errorf("MaxSubarrayBruteForce failed for single item array")
+
+	intArray = []int{1, 2}
+	low, high, err = MaxSubarrayBruteForce(intArray)
+	if low != 0 || high != 1 || err != nil {
+		t.Errorf("MaxSubarrayBruteForce failed for two positive values")
 	}
-	intArray = []int{1}
-	left, right, err = MaxSubarrayBruteForce(intArray)
-	if left != 0 || right != 0 || err != nil {
-		t.Errorf("MaxSubarrayBruteForce failed for single item array")
+
+	intArray = []int{-1, 2}
+	low, high, err = MaxSubarrayBruteForce(intArray)
+	if low != 1 || high != 1 || err != nil {
+		t.Errorf("MaxSubarrayBruteForce failed for two values, one negative")
+	}
+
+	intArray = []int{-1, -2}
+	low, high, err = MaxSubarrayBruteForce(intArray)
+	if low != 0 || high != 0 || err != nil {
+		t.Errorf("MaxSubarrayBruteForce failed for two negative values")
+	}
+
+	intArray = []int{1, -2}
+	low, high, err = MaxSubarrayBruteForce(intArray)
+	if low != 0 || high != 0 || err != nil {
+		t.Errorf("MaxSubarrayBruteForce failed for two values, second negative")
+	}
+}
+
+func TestMaxSubarrayBruteForceLeftRight(t *testing.T) {
+	intArray := []int{2, 3, 2, -5, -4}
+	low, high, err := MaxSubarrayBruteForce(intArray)
+	if low != 0 || high != 2 || err != nil {
+		t.Errorf("MaxSubarrayBruteForce failed for left subarray")
+	}
+
+	intArray = []int{-1, -3, 3, 2, 5}
+	low, high, err = MaxSubarrayBruteForce(intArray)
+	if low != 2 || high != 4 || err != nil {
+		t.Errorf("MaxSubarrayBruteForce failed for right subarray")
+	}
+
+	intArray = []int{2, 0, -1, 2, 5}
+	low, high, err = MaxSubarrayBruteForce(intArray)
+	if low != 0 || high != 4 || err != nil {
+		t.Errorf("MaxSubarrayBruteForce failed for full array with 0")
+	}
+
+	intArray = []int{1, 0, -1, 0, 5}
+	low, high, err = MaxSubarrayBruteForce(intArray)
+	if low != 0 || high != 4 || err != nil {
+		t.Errorf("MaxSubarrayBruteForce failed for full array with 0")
+	}
+
+	intArray = []int{-1, -2, 10, -3, -5}
+	low, high, err = MaxSubarrayBruteForce(intArray)
+	if low != 2 || high != 2 || err != nil {
+		t.Errorf("getMaxSubarray failed for full array with large number")
 	}
 }

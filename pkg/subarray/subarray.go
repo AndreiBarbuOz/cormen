@@ -95,11 +95,13 @@ func MaxSubarrayBruteForce(arr []int) (left int, right int, err error) {
 		var crtSum int = arr[i]
 		if crtSum > maxSum {
 			maxLeft, maxRight = i, i
+			maxSum = crtSum
 		}
 		for j := i + 1; j < len(arr); j++ {
 			crtSum += arr[j]
 			if crtSum > maxSum {
 				maxLeft, maxRight = i, j
+				maxSum = crtSum
 			}
 		}
 	}
