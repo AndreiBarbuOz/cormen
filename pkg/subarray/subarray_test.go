@@ -1,7 +1,6 @@
 package subarray
 
 import (
-	"fmt"
 	"testing"
 )
 
@@ -17,7 +16,6 @@ func TestFindMaxCrossingSubarrayInvalid(t *testing.T) {
 	if err == nil {
 		t.Errorf("findMaxCrossingSubarray failed to raise error for array with 1 element")
 	}
-
 
 	intArray = append(intArray, 1)
 	_, _, _, err = findMaxCrossingSubarray(intArray, 0, 0, 2)
@@ -35,8 +33,6 @@ func TestFindMaxCrossingSubarrayInvalid(t *testing.T) {
 	if err == nil {
 		t.Errorf("findMaxCrossingSubarray failed to raise error for array with mid == high")
 	}
-	fmt.Printf("array %v\n", intArray)
-
 }
 
 func TestFindMaxCrossingSubarrayEmpty(t *testing.T) {
@@ -68,7 +64,6 @@ func TestFindMaxCrossingSubarrayThreeNegative(t *testing.T) {
 		t.Errorf("findMaxCrossingSubarray failed for three negative array")
 	}
 }
-
 
 func TestGetMaxSubarrayEmpty(t *testing.T) {
 	intArray := []int{}
@@ -140,7 +135,6 @@ func TestGetMaxSubarrayCross(t *testing.T) {
 	}
 }
 
-
 func TestGetMaxSubarrayLeftRight(t *testing.T) {
 	intArray := []int{2, 3, 2, -5, -4}
 	low, high, sum, err := getMaxSubarray(intArray, 0, 4)
@@ -166,4 +160,28 @@ func TestGetMaxSubarrayLeftRight(t *testing.T) {
 		t.Errorf("getMaxSubarray failed for full array with 0")
 	}
 
+	intArray = []int{-1, -2, 10, -3, -5}
+	low, high, sum, err = getMaxSubarray(intArray, 0, 4)
+	if low != 2 || high != 2 || sum != 10 || err != nil {
+		t.Errorf("getMaxSubarray failed for full array with large number")
+	}
+
+}
+
+func TestMaxSubarrayBruteForceEmpty(t *testing.T) {
+	intArray := []int{}
+	left, right, err := MaxSubarrayBruteForce(intArray)
+	if left != 0 || right != 0 || err != nil {
+		t.Errorf("MaxSubarrayBruteForce failed for empty array")
+	}
+	intArray = append(intArray, 0)
+	left, right, err = MaxSubarrayBruteForce(intArray)
+	if left != 0 || right != 0 || err != nil {
+		t.Errorf("MaxSubarrayBruteForce failed for single item array")
+	}
+	intArray = []int{1}
+	left, right, err = MaxSubarrayBruteForce(intArray)
+	if left != 0 || right != 0 || err != nil {
+		t.Errorf("MaxSubarrayBruteForce failed for single item array")
+	}
 }

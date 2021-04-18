@@ -6,7 +6,8 @@ import (
 )
 
 func MaxSubarray(arr []int) (left int, right int, err error) {
-	return 0, 0, nil
+	left, right, _, err = getMaxSubarray(arr, 0, len(arr)-1)
+	return left, right, err
 }
 
 func getMaxSubarray(arr []int, low int, high int) (maxLeft int, maxRight int, maxSum int, err error) {
@@ -81,4 +82,26 @@ func findMaxCrossingSubarray(arr []int, low int, mid int, high int) (maxLeft int
 	maxSum = sumLeft + sumRight
 
 	return maxLeft, maxRight, maxSum, nil
+}
+
+func MaxSubarrayBruteForce(arr []int) (left int, right int, err error) {
+	if len(arr) == 0 || len(arr) == 1 {
+		return 0, 0, nil
+	}
+	var maxSum int = math.MinInt64
+	var maxLeft, maxRight int = 0, 0
+
+	for i := 0; i < len(arr); i++ {
+		var crtSum int = arr[i]
+		if crtSum > maxSum {
+			maxLeft, maxRight = i, i
+		}
+		for j := i + 1; j < len(arr); j++ {
+			crtSum += arr[j]
+			if crtSum > maxSum {
+				maxLeft, maxRight = i, j
+			}
+		}
+	}
+	return maxLeft, maxRight, nil
 }
