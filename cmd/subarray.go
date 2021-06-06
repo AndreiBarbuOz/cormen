@@ -23,6 +23,10 @@ var generateCmd = &cobra.Command{
 	Short: "Generate test data for subarray testing",
 	Run: func(cmd *cobra.Command, args []string) {
 		fmt.Printf("Generate file %v\n", filePath)
+		err := generateFile(filePath, 100)
+		if err != nil {
+			os.Exit(1)
+		}
 	},
 }
 

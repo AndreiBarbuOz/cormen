@@ -1,10 +1,21 @@
 package main
 
-import (
-	"github.com/AndreiBarbuOz/cormen/cmd"
-	"os"
-)
+import "github.com/AndreiBarbuOz/cormen/pkg/ds"
+
+type Stack interface {
+	Top() interface{}
+	Push(interface{})
+	Pop() (interface{}, error)
+	IsEmpty() bool
+}
+
+type Queue interface {
+	Enqueue(interface{}) error
+	Dequeue() (interface{}, error)
+}
 
 func main() {
-	cmd.Execute(os.Args[1:])
+	var list Queue
+	list = ds.NewLinkedList()
+	list.Enqueue("value")
 }
