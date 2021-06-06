@@ -187,3 +187,70 @@ func TestLinkedListEmpty(t *testing.T) {
 	}
 
 }
+
+func TestLinkedStackBasic(t *testing.T) {
+	var stack *LinkedStack
+	stack = NewLinkedStack()
+
+	if top := stack.Top(); top != nil {
+		t.Errorf("SliceStack init failed: Top() returned non nil")
+	}
+
+	val := "test123"
+	stack.Push(val)
+	if ret := stack.Top(); ret != "test123" {
+		t.Errorf("SliceStack init failed: Top() returned non nil")
+	}
+}
+
+func TestLinkedStackEmpty(t *testing.T) {
+	var stack *LinkedStack
+	stack = NewLinkedStack()
+
+	if ret := stack.IsEmpty(); !ret {
+		t.Errorf("SliceStack IsEmpty failed: returned false")
+	}
+	stack.Push("value")
+	if ret := stack.IsEmpty(); ret {
+		t.Errorf("SliceStack IsEmpty failed: returned true after Push")
+	}
+	stack.Pop()
+	if ret := stack.IsEmpty(); !ret {
+		t.Errorf("SliceStack IsEmpty failed: returned true after Push and Pop")
+	}
+}
+
+func TestLinkedStackError(t *testing.T) {
+	var stack *LinkedStack
+	stack = NewLinkedStack()
+
+	stack.Push("value")
+	val, err := stack.Pop()
+	if val != "value" {
+		t.Errorf("SliceStack returned wrong value after Push")
+	}
+	if err != nil {
+		t.Errorf("SliceStack Pop return error on non empty stack")
+	}
+	val, err = stack.Pop()
+	if err == nil {
+		t.Errorf("SliceStack Pop return nil error on empty stack")
+	}
+}
+
+func TestLinkedStackAppendPush(t *testing.T) {
+	stack := NewLinkedStack()
+
+	for i := 0; i < 20; i++ {
+		stack.Push(fmt.Sprintf("val%d", i))
+	}
+	for i := 19; i >= 0; i-- {
+		val, err := stack.Pop()
+		if val != fmt.Sprintf("val%d", i) {
+			t.Errorf("SliceStack returned wrong value after Push")
+		}
+		if err != nil {
+			t.Errorf("SliceStack Pop return error on non empty stack")
+		}
+	}
+}

@@ -106,3 +106,42 @@ func (l *LinkedList) Dequeue() (interface{}, error) {
 	}
 	return ret, nil
 }
+
+type LinkedStack struct {
+	top *linkedListElem
+}
+
+func NewLinkedStack() *LinkedStack {
+	return &LinkedStack{}
+}
+
+func (l *LinkedStack) Top() interface{} {
+	if l.top != nil {
+		return l.top.data
+	} else {
+		return nil
+	}
+}
+
+func (l *LinkedStack) Push(el interface{}) {
+	if l.top != nil {
+		newElem := &linkedListElem{el, l.top}
+		l.top = newElem
+	} else {
+		l.top = &linkedListElem{el, nil}
+	}
+}
+
+func (l *LinkedStack) IsEmpty() bool {
+	return l.top == nil
+}
+
+func (l *LinkedStack) Pop() (interface{}, error) {
+	if l.top == nil {
+		return nil, fmt.Errorf("called Pop() on empty LinkedStack")
+	}
+	var ret interface{}
+	ret = l.top.data
+	l.top = l.top.next
+	return ret, nil
+}
